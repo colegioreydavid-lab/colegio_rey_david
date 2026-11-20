@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colegio Rey David — Formando el futuro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0d2340;
+    --navy-mid: #1a3a5c;
+    --navy-light: #2a5a8a;
+    --gold: #c8973a;
+    --gold-light: #e8b85a;
+    --cream: #f9f5ec;
+    --cream-dark: #ede8db;
+    --text: #1a1a1a;
+    --text-muted: #6a6a6a;
+    --white: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(13, 35, 64, 0.97);
+    backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 72px;
+    border-bottom: 1px solid rgba(200, 151, 58, 0.3);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 14px;
+    text-decoration: none;
+  }
+  .nav-logo-img {
+    width: 50px; height: 50px; object-fit: cover;
+  }
+  .nav-logo-text { color: var(--white); }
+  .nav-logo-text strong { display: block; font-size: 15px; font-weight: 500; letter-spacing: 0.04em; }
+  .nav-logo-text span { display: block; font-size: 11px; color: var(--gold-light); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .nav-links {
+    display: flex; gap: 28px; list-style: none; align-items: center;
+  }
+  .nav-links > li { position: relative; }
+  .nav-links > li > a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none; font-size: 13px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+    display: flex; align-items: center; gap: 5px;
+    padding: 8px 0;
+  }
+  .nav-links > li > a:hover { color: var(--gold-light); }
+  .nav-links > li > a .chevron {
+    font-size: 9px;
+    transition: transform 0.2s;
+    opacity: 0.6;
+  }
+  .nav-links > li:hover > a .chevron { transform: rotate(180deg); }
+
+  .nav-dropdown {
+    position: absolute; top: calc(100% + 12px); left: 50%;
+    transform: translateX(-50%);
+    background: var(--navy);
+    border: 1px solid rgba(200,151,58,0.2);
+    border-radius: 6px;
+    min-width: 200px;
+    padding: 8px 0;
+    list-style: none;
+    opacity: 0; pointer-events: none;
+    transform: translateX(-50%) translateY(-8px);
+    transition: opacity 0.2s, transform 0.2s;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  }
+  .nav-links > li:hover .nav-dropdown {
+    opacity: 1; pointer-events: all;
+    transform: translateX(-50%) translateY(0);
+  }
+  .nav-dropdown::before {
+    content: '';
+    position: absolute; top: -6px; left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-bottom-color: rgba(200,151,58,0.25);
+    border-top: none;
+  }
+    .nav-dropdown::after {
+        content: '';
+        position: absolute;
+        top: -14px; /* cubre el hueco de 12px entre el botón y el menú */
+        left: 0;
+        right: 0;
+        height: 14px;
+    }
+  .nav-dropdown li a {
+    display: flex; align-items: center; gap: 10px;
+    padding: 11px 20px;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none; font-size: 13px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .nav-dropdown li a:hover {
+    background: rgba(200,151,58,0.08);
+    color: var(--gold-light);
+  }
+  .nav-dropdown li a i { width: 16px; text-align: center; font-size: 13px; color: var(--gold); }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--navy) !important;
+    padding: 9px 20px;
+    border-radius: 4px;
+    font-weight: 500 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+
+  .nav-hamburger {
+    display: none;
+    background: none; border: none; cursor: pointer;
+    flex-direction: column; gap: 5px; padding: 4px;
+  }
+  .nav-hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--white);
+    transition: all 0.3s;
+    border-radius: 2px;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed; top: 72px; left: 0; right: 0; z-index: 190;
+    background: var(--navy);
+    border-top: 1px solid rgba(200,151,58,0.2);
+    padding: 16px 5% 24px;
+    flex-direction: column; gap: 0;
+    transform: translateY(-10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+  }
+  .mobile-menu.open {
+    display: flex; opacity: 1; pointer-events: all;
+    transform: translateY(0);
+  }
+  .mobile-menu a {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.75);
+    text-decoration: none; font-size: 15px;
+    transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--gold-light); }
+  .mobile-menu a i { width: 20px; text-align: center; color: var(--gold); font-size: 14px; }
+  .mobile-menu .mobile-cta {
+    margin-top: 16px;
+    background: var(--gold); color: var(--navy);
+    padding: 14px; border-radius: 4px;
+    justify-content: center; font-weight: 500;
+    border-bottom: none;
+  }
+  .mobile-menu .mobile-cta:hover { background: var(--gold-light); color: var(--navy); }
+  .mobile-section-label {
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(200,151,58,0.6); padding: 16px 0 6px;
+    font-weight: 500;
+  }
+
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    position: relative;
+    display: flex; align-items: center;
+    overflow: hidden;
+  }
+  .hero-bg-pattern {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 70% 50%, rgba(200,151,58,0.08) 0%, transparent 60%),
+      repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 61px);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 140px 5% 100px;
+    max-width: 720px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid rgba(200,151,58,0.5);
+    color: var(--gold-light);
+    font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 500;
+    padding: 6px 16px; border-radius: 2px;
+    margin-bottom: 32px;
+  }
+  .hero-badge span { color: var(--gold); font-size: 14px; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 4.8rem);
+    line-height: 1.1; color: var(--white);
+    margin-bottom: 28px; font-weight: 400;
+  }
+  .hero h1 em { color: var(--gold); font-style: italic; }
+  .hero-sub {
+    font-size: 1.1rem; color: rgba(255,255,255,0.65);
+    max-width: 520px; margin-bottom: 48px;
+    font-weight: 300; line-height: 1.8;
+  }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold); color: var(--navy);
+    padding: 14px 32px; border-radius: 4px;
+    text-decoration: none; font-weight: 500;
+    font-size: 14px; letter-spacing: 0.04em;
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-outline {
+    border: 1px solid rgba(255,255,255,0.35); color: var(--white);
+    padding: 14px 32px; border-radius: 4px;
+    text-decoration: none; font-weight: 400;
+    font-size: 14px; letter-spacing: 0.04em;
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-scroll {
+    position: absolute; bottom: 32px; left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.3); font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .hero-scroll::after {
+    content: ''; width: 1px; height: 40px;
+    background: linear-gradient(to bottom, rgba(200,151,58,0.5), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+  section { padding: 100px 5%; }
+  .section-label {
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 16px; display: block;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400; line-height: 1.2; color: var(--navy); margin-bottom: 20px;
+  }
+  .section-title em { font-style: italic; color: var(--navy-light); }
+
+  .mision-vision {
+    background: var(--cream);
+    padding: 100px 5%;
+  }
+  .mv-header { text-align: center; margin-bottom: 72px; }
+  .mv-header .section-title { margin-bottom: 16px; }
+  .mv-header p { color: var(--text-muted); max-width: 560px; margin: 0 auto; font-weight: 300; line-height: 1.8; }
+
+  .mv-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+    max-width: 960px; margin: 0 auto;
+  }
+
+  .mv-card {
+    position: relative; overflow: hidden;
+    border-radius: 8px;
+    padding: 52px 48px;
+  }
+  .mv-card-mision {
+    background: var(--navy);
+    color: var(--white);
+  }
+  .mv-card-vision {
+    background: var(--white);
+    border: 2px solid var(--navy);
+    color: var(--text);
+  }
+
+  .mv-card-icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 28px;
+  }
+  .mv-card-mision .mv-card-icon {
+    background: rgba(200,151,58,0.15);
+    color: var(--gold);
+  }
+  .mv-card-vision .mv-card-icon {
+    background: var(--cream);
+    color: var(--navy);
+  }
+
+  .mv-card-label {
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    font-weight: 600; margin-bottom: 16px; display: block;
+  }
+  .mv-card-mision .mv-card-label { color: var(--gold-light); }
+  .mv-card-vision .mv-card-label { color: var(--gold); }
+
+  .mv-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700;
+    line-height: 1.1; margin-bottom: 24px;
+  }
+  .mv-card-mision .mv-card-title { color: var(--white); }
+  .mv-card-vision .mv-card-title { color: var(--navy); }
+
+  .mv-card-text { font-size: 15px; line-height: 1.8; font-weight: 300; }
+  .mv-card-mision .mv-card-text { color: rgba(255,255,255,0.65); }
+  .mv-card-vision .mv-card-text { color: var(--text-muted); }
+
+  .mv-card-deco {
+    position: absolute; bottom: -30px; right: -30px;
+    font-size: 120px; opacity: 0.04;
+    font-family: 'Playfair Display', serif; font-weight: 700;
+    line-height: 1; pointer-events: none;
+  }
+  .mv-card-mision .mv-card-deco { color: var(--gold); }
+  .mv-card-vision .mv-card-deco { color: var(--navy); }
+
+  .mv-valores {
+    display: flex; gap: 0; margin-top: 40px;
+    border: 1px solid var(--cream-dark);
+    border-radius: 8px; overflow: hidden;
+    max-width: 960px; margin: 40px auto 0;
+  }
+  .mv-valor {
+    flex: 1; padding: 32px 28px;
+    border-right: 1px solid var(--cream-dark);
+    background: var(--white);
+    text-align: center;
+    transition: background 0.25s;
+  }
+  .mv-valor:last-child { border-right: none; }
+  .mv-valor:hover { background: var(--cream); }
+  .mv-valor i { font-size: 24px; color: var(--gold); margin-bottom: 12px; display: block; }
+  .mv-valor strong { display: block; font-size: 14px; color: var(--navy); margin-bottom: 6px; }
+  .mv-valor span { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+  .actividades { background: var(--white); }
+  .act-header { margin-bottom: 48px; }
+
+  .act-tabs {
+    display: flex; gap: 0;
+    border: 1px solid var(--cream-dark);
+    border-radius: 6px; overflow: hidden;
+    margin-bottom: 40px;
+    width: fit-content;
+  }
+  .act-tab {
+    padding: 11px 24px;
+    background: var(--white);
+    border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    border-right: 1px solid var(--cream-dark);
+    transition: all 0.2s;
+  }
+  .act-tab:last-child { border-right: none; }
+  .act-tab.active { background: var(--navy); color: var(--gold-light); }
+  .act-tab:hover:not(.active) { background: var(--cream); color: var(--navy); }
+
+  .act-panel { display: none; }
+  .act-panel.active { display: block; }
+
+  .act-panel-info {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 24px; margin-bottom: 28px; flex-wrap: wrap;
+  }
+  .act-panel-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; color: var(--navy); font-weight: 400;
+  }
+  .act-panel-info p {
+    font-size: 14px; color: var(--text-muted); max-width: 480px; line-height: 1.6;
+  }
+
+  .photo-mosaic {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 220px;
+    gap: 8px;
+  }
+  .photo-mosaic .photo-item {
+    position: relative; overflow: hidden; border-radius: 6px;
+    background: var(--cream-dark); cursor: pointer;
+  }
+  .photo-mosaic .photo-item.wide { grid-column: span 2; }
+  .photo-mosaic .photo-item.tall { grid-row: span 2; }
+  .photo-mosaic .photo-item.big  { grid-column: span 2; grid-row: span 2; }
+  .photo-mosaic .photo-item.span3 { grid-column: span 3; }
+
+  .photo-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    display: block;
+  }
+  .photo-item:hover img { transform: scale(1.06); }
+
+  .photo-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(13,35,64,0.75) 0%, transparent 55%);
+    opacity: 0; transition: opacity 0.3s;
+    display: flex; align-items: flex-end; padding: 16px 18px;
+  }
+  .photo-item:hover .photo-overlay { opacity: 1; }
+  .photo-overlay span {
+    color: var(--white); font-size: 13px; font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+
+  .photo-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 10px;
+    background: var(--cream-dark);
+    transition: background 0.3s;
+  }
+  .photo-item:hover .photo-placeholder { background: var(--cream); }
+  .photo-placeholder i { font-size: 28px; color: var(--gold); opacity: 0.7; }
+  .photo-placeholder span {
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-muted); text-align: center; padding: 0 12px;
+  }
+  .photo-placeholder::after {
+    content: '';
+    font-size: 10px; color: rgba(0,0,0,0.25);
+    position: absolute; bottom: 10px; right: 12px;
+    letter-spacing: 0.04em;
+  }
+  .photo-item { position: relative; }
+
+  /* ══════════════════════════════
+     INSTALACIONES
+  ══════════════════════════════ */
+  .instalaciones { background: var(--navy); padding: 100px 5%; }
+  .inst-header { margin-bottom: 56px; }
+  .inst-header .section-title { color: var(--white); }
+  .inst-header .section-title em { color: var(--gold); }
+  .inst-header p { color: rgba(255,255,255,0.5); max-width: 480px; font-weight: 300; line-height: 1.8; }
+
+  .inst-mosaic {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: 200px;
+    gap: 10px;
+  }
+  .inst-photo {
+    position: relative; overflow: hidden; border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(200,151,58,0.12);
+    cursor: pointer;
+  }
+  .inst-photo.span2 { grid-column: span 2; }
+  .inst-photo.span3 { grid-column: span 3; }
+  .inst-photo.span4 { grid-column: span 4; }
+  .inst-photo.span6 { grid-column: span 6; }
+  .inst-photo.tall  { grid-row: span 2; }
+
+  .inst-photo img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block; transition: transform 0.4s ease;
+  }
+  .inst-photo:hover img { transform: scale(1.07); }
+
+  .inst-photo-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(13,35,64,0.88) 0%, transparent 50%);
+    display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 18px 20px;
+    transition: opacity 0.3s;
+  }
+  .inst-photo-tag {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold-light); font-weight: 600; margin-bottom: 4px;
+  }
+  .inst-photo-name {
+    font-size: 14px; font-weight: 500; color: var(--white);
+    font-family: 'Playfair Display', serif;
+  }
+
+  .inst-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 12px;
+    transition: background 0.3s;
+  }
+  .inst-photo:hover .inst-placeholder { background: rgba(200,151,58,0.05); }
+  .inst-placeholder i { font-size: 32px; color: var(--gold); opacity: 0.5; }
+  .inst-placeholder-label {
+    text-align: center; padding: 0 12px;
+  }
+  .inst-placeholder-label strong {
+    display: block; font-size: 13px; color: rgba(255,255,255,0.7);
+    margin-bottom: 4px; font-weight: 500;
+  }
+  .inst-placeholder-label span {
+    font-size: 10px; color: rgba(255,255,255,0.25);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  .niveles { background: var(--cream); }
+  .niveles-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2px; margin-top: 60px; border: 2px solid var(--navy);
+  }
+  .nivel-card {
+    padding: 48px 36px; background: var(--white);
+    border-right: 2px solid var(--navy);
+    position: relative; overflow: hidden;
+    transition: background 0.3s; cursor: default;
+  }
+  .nivel-card:last-child { border-right: none; }
+  .nivel-card::before {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px; background: var(--gold);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.35s ease;
+  }
+  .nivel-card:hover { background: var(--cream); }
+  .nivel-card:hover::before { transform: scaleX(1); }
+  .nivel-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem; font-weight: 700; color: var(--cream-dark);
+    line-height: 1; margin-bottom: 20px; transition: color 0.3s;
+  }
+  .nivel-card:hover .nivel-num { color: var(--gold-light); }
+  .nivel-title { font-size: 1.1rem; font-weight: 500; color: var(--navy); margin-bottom: 12px; letter-spacing: 0.02em; }
+  .nivel-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+  .nivel-ages {
+    margin-top: 24px; display: inline-block;
+    background: var(--navy); color: var(--gold-light);
+    font-size: 11px; letter-spacing: 0.1em;
+    padding: 5px 14px; border-radius: 2px; text-transform: uppercase;
+  }
+
+  .propuesta {
+    background: var(--navy); color: var(--white);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .propuesta-left .section-title { color: var(--white); }
+  .propuesta-left .section-title em { color: var(--gold); }
+  .propuesta-desc { color: rgba(255,255,255,0.6); margin-bottom: 40px; font-weight: 300; line-height: 1.8; }
+  .pilares { display: flex; flex-direction: column; gap: 0; }
+  .pilar { display: flex; gap: 24px; align-items: flex-start; padding: 24px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .pilar:last-child { border-bottom: none; }
+  .pilar-num { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--gold); flex-shrink: 0; width: 32px; line-height: 1.2; }
+  .pilar-text strong { display: block; font-weight: 500; margin-bottom: 4px; font-size: 15px; }
+  .pilar-text span { font-size: 13px; color: rgba(255,255,255,0.45); }
+  .valores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .valor-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(200,151,58,0.15);
+    padding: 28px 24px; border-radius: 6px; transition: background 0.3s, border-color 0.3s;
+  }
+  .valor-card:hover { background: rgba(200,151,58,0.06); border-color: rgba(200,151,58,0.4); }
+  .valor-icon { font-size: 2rem; margin-bottom: 14px; display: block; }
+  .valor-name { font-weight: 500; font-size: 15px; margin-bottom: 8px; color: var(--gold-light); }
+  .valor-desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+  .admisiones-band {
+    background: var(--gold); padding: 80px 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 48px; flex-wrap: wrap;
+  }
+  .admisiones-band-text .section-label { color: var(--navy); }
+  .admisiones-band-text .section-title { color: var(--navy); margin-bottom: 8px; }
+  .admisiones-band-text p { color: rgba(13,35,64,0.65); font-size: 15px; font-weight: 300; }
+  .btn-navy {
+    background: var(--navy); color: var(--white);
+    padding: 16px 40px; border-radius: 4px;
+    text-decoration: none; font-weight: 500;
+    font-size: 14px; letter-spacing: 0.05em;
+    white-space: nowrap; transition: background 0.2s; display: inline-block;
+  }
+  .btn-navy:hover { background: var(--navy-mid); }
+
+  .contacto { background: var(--white); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contacto-info .section-title { margin-bottom: 28px; }
+  .contacto-info p { color: var(--text-muted); margin-bottom: 36px; font-weight: 300; line-height: 1.8; }
+  .contacto-items { display: flex; flex-direction: column; gap: 20px; }
+  .contacto-item { display: flex; gap: 16px; align-items: flex-start; }
+  .contacto-item-icon {
+    width: 40px; height: 40px; background: var(--cream);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 18px;
+  }
+  .contacto-item-text strong { display: block; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .contacto-item-text span { font-size: 14px; color: var(--text); }
+  .contacto-form { padding-top: 16px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .form-group label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); font-weight: 500; }
+  .form-group input, .form-group select, .form-group textarea {
+    padding: 12px 16px; border: 1px solid var(--cream-dark); border-radius: 4px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text);
+    background: var(--cream); outline: none; transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--navy-light); background: var(--white); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-submit {
+    background: var(--navy); color: var(--white);
+    border: none; cursor: pointer; padding: 14px 36px;
+    border-radius: 4px; font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500; letter-spacing: 0.04em;
+    transition: background 0.2s; width: 100%;
+  }
+  .form-submit:hover { background: var(--navy-mid); }
+  .mapa-container { border-radius: 12px; overflow: hidden; margin-top: 32px; }
+
+  .redes-sociales { display: flex; justify-content: center; align-items: center; gap: 60px; margin-top: 32px; text-align: center; }
+  .red-social { display: flex; flex-direction: column; align-items: center; }
+  .red-social a { color: var(--navy); font-size: 40px; text-decoration: none; transition: 0.3s; }
+  .red-social a:hover { color: var(--gold); transform: translateY(-4px); }
+  .red-social span { margin-top: 10px; font-size: 14px; font-weight: 500; color: var(--text-muted); }
+
+  footer { background: var(--navy); color: rgba(255,255,255,0.5); padding: 60px 5% 36px; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-brand .nav-logo-text strong { color: var(--white); font-size: 16px; }
+  .footer-brand .nav-logo-text span { color: var(--gold-light); }
+  .footer-desc { margin-top: 16px; font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.38); }
+  .footer-col h4 { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 20px; font-weight: 500; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--gold-light); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .propuesta { grid-template-columns: 1fr; gap: 48px; }
+    .contacto { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .mv-grid { grid-template-columns: 1fr; }
+    .photo-mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
+    .photo-item.big { grid-column: span 2; grid-row: span 1; }
+    .photo-item.wide { grid-column: span 2; }
+    .photo-item.tall { grid-row: span 1; }
+    .photo-item.span3 { grid-column: span 2; }
+    .inst-mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
+    .inst-photo.span3, .inst-photo.span4, .inst-photo.span6 { grid-column: span 2; }
+    .inst-photo.span2 { grid-column: span 1; }
+    .inst-photo.tall { grid-row: span 1; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 72px 5%; }
+    .form-row { grid-template-columns: 1fr; }
+    .valores-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .admisiones-band { flex-direction: column; }
+    .mv-valores { flex-direction: column; }
+    .mv-valor { border-right: none; border-bottom: 1px solid var(--cream-dark); }
+    .mv-valor:last-child { border-bottom: none; }
+    .act-tabs { flex-wrap: wrap; }
+    .redes-sociales { gap: 32px; }
+    .photo-mosaic { grid-template-columns: 1fr 1fr; grid-auto-rows: 140px; }
+    .photo-item.big, .photo-item.wide, .photo-item.span3 { grid-column: span 2; }
+    .inst-mosaic { grid-template-columns: 1fr; grid-auto-rows: 160px; }
+    .inst-photo.span2, .inst-photo.span3, .inst-photo.span4, .inst-photo.span6 { grid-column: span 1; }
+    .inst-photo.tall { grid-row: span 1; }
+    .devo-mosaic {
+        grid-auto-rows: 160px;
+    }
+
+        .devo-mosaic .photo-item.big {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .devo-mosaic .photo-item.tall {
+            grid-row: span 2;
+        }
+  }
+    #panel-espirituales .photo-mosaic {
+        gap: 16px;
+    }
+
+    #panel-espirituales .photo-item {
+        border-radius: 14px;
+        box-shadow: 0 10px 24px rgba(13, 35, 64, .10);
+        transition: transform .35s ease, box-shadow .35s ease;
+    }
+
+        #panel-espirituales .photo-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(13, 35, 64, .16);
+        }
+
+    /* Tablet y móvil */
+    @media (max-width: 900px) {
+        #panel-espirituales .photo-mosaic {
+            grid-template-columns: 1fr 1fr;
+            grid-auto-rows: 120px;
+            gap: 14px;
+        }
+
+        #panel-espirituales .photo-item:nth-child(n) {
+            transform: none;
+        }
+
+        #panel-espirituales .photo-item:nth-child(1) {
+            grid-column: 1 / 3;
+            grid-row: span 3;
+            border-radius: 160px 160px 24px 24px;
+        }
+
+        #panel-espirituales .photo-item:nth-child(2) {
+            grid-column: 1 / 3;
+            grid-row: span 2;
+            border-radius: 24px 80px 24px 80px;
+        }
+
+        #panel-espirituales .photo-item:nth-child(3) {
+            grid-column: 1 / 2;
+            grid-row: span 2;
+            border-radius: 50%;
+        }
+
+        #panel-espirituales .photo-item:nth-child(4) {
+            grid-column: 2 / 3;
+            grid-row: span 2;
+            border-radius: 999px;
+        }
+
+        #panel-espirituales .photo-item:nth-child(5) {
+            grid-column: 1 / 3;
+            grid-row: span 2;
+            border-radius: 24px 24px 100px 100px;
+        }
+    }
+    /* Talleres culturales: bloque grande con la proporción de la foto (3:2) */
+    #panel-culturales .photo-item.tall {
+        grid-row: span 2;
+    }
+
+        #panel-culturales .photo-mosaic {
+            grid-auto-rows: 290px; /* respaldo para navegadores viejos */
+            grid-auto-rows: calc(17cqw - 5px); /* se ajusta al ancho real */
+        }
+
+    @media (max-width: 900px) {
+        #panel-culturales .photo-mosaic {
+            grid-auto-rows: calc(34cqw - 4px);
+        }
+
+        #panel-culturales .photo-item.big {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo">
+    <img src="https://i.postimg.cc/T3nLvp6j/image.png" alt="Logo Colegio Rey David" class="nav-logo-img">
+    <div class="nav-logo-text">
+      <strong>Colegio Rey David</strong>
+      <span>Desde 2000</span>
+    </div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#niveles">Niveles</a></li>
+    <li>
+      <a href="#mision-vision">
+        Institución <i class="fas fa-chevron-down chevron"></i>
+      </a>
+      <ul class="nav-dropdown">
+        <li><a href="#mision-vision"><i class="fas fa-bullseye"></i> Misión y Visión</a></li>
+        <li><a href="#actividades"><i class="fas fa-star"></i> Actividades</a></li>
+        <li><a href="#instalaciones"><i class="fas fa-building"></i> Instalaciones</a></li>
+      </ul>
+    </li>
+    <li><a href="#propuesta">Propuesta</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#admisiones" class="nav-cta">Admisiones</a></li>
+  </ul>
+
+  <button class="nav-hamburger" id="hamburger" aria-label="Abrir menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#niveles"><i class="fas fa-graduation-cap"></i> Niveles</a>
+  <div class="mobile-section-label">Institución</div>
+  <a href="#mision-vision"><i class="fas fa-bullseye"></i> Misión y Visión</a>
+  <a href="#actividades"><i class="fas fa-star"></i> Actividades</a>
+  <a href="#instalaciones"><i class="fas fa-building"></i> Instalaciones</a>
+  <a href="#propuesta"><i class="fas fa-book-open"></i> Propuesta</a>
+  <a href="#contacto"><i class="fas fa-envelope"></i> Contacto</a>
+  <a href="#admisiones" class="mobile-cta"><i class="fas fa-user-plus"></i> Solicitar admisión</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span>★</span> Excelencia académica · Guatemala
+    </div>
+    <h1>Formando personas<br>que <em>transforman</em><br>el mundo</h1>
+    <p class="hero-sub">
+      Una educación integral que combina rigor académico, valores sólidos y desarrollo humano para preparar a nuestros estudiantes para el futuro.
+    </p>
+    <div class="hero-actions">
+      <a href="#admisiones" class="btn-primary">Solicitar admisión</a>
+      <a href="#propuesta" class="btn-outline">Conocer más</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MISIÓN Y VISIÓN ══ -->
+<section class="mision-vision" id="mision-vision">
+  <div class="mv-header">
+    <span class="section-label">Quiénes somos</span>
+    <h2 class="section-title">Nuestra <em>identidad</em></h2>
+    <p>Somos una institución educativa cristiana comprometida con la formación integral de cada estudiante, guiados por valores bíblicos y excelencia académica.</p>
+  </div>
+
+  <div class="mv-grid">
+    <div class="mv-card mv-card-mision">
+      <div class="mv-card-icon"><i class="fas fa-crosshairs"></i></div>
+      <span class="mv-card-label">Misión</span>
+      <h3 class="mv-card-title">¿Por qué existimos?</h3>
+      <p class="mv-card-text">
+        Somos una institución educativa cristiana comprometida con formar personas dependientes de Dios, exitosos, profesionales, que se integren eficientemente a los diferentes grupos sociales en los que les corresponda desarrollarse. Capaces de desempeñar eficazmente el trabajo que se les asigne y capacas de proponerse nuevos cambios en la construcción de un nuevo país. 
+      <div class="mv-card-deco">M</div>
+    </div>
+    <div class="mv-card mv-card-vision">
+      <div class="mv-card-icon"><i class="fas fa-eye"></i></div>
+      <span class="mv-card-label">Visión</span>
+      <h3 class="mv-card-title">¿A dónde vamos?</h3>
+      <p class="mv-card-text">
+        Ser una institución educativa que facilite el desarrollo integral de los educandos, con la finalidad de formar ciudadanos responsables, productivos y felices. Fundamentamos nuestro trabajo en principios y valores cristianos. Pretendemos facilitar los procesos educativos en nuestros alumnos para lograr el desarrollo de las multi-inteligencias.
+      </p>
+      <div class="mv-card-deco">V</div>
+    </div>
+  </div>
+
+  <div class="mv-valores">
+    <div class="mv-valor">
+      <i class="fas fa-cross"></i>
+      <strong>Fe</strong>
+      <span>Principios bíblicos como base de toda formación</span>
+    </div>
+    <div class="mv-valor">
+      <i class="fas fa-handshake"></i>
+      <strong>Respeto</strong>
+      <span>Hacia Dios, familia, compañeros y entorno</span>
+    </div>
+    <div class="mv-valor">
+      <i class="fas fa-shield-alt"></i>
+      <strong>Integridad</strong>
+      <span>Honestidad y coherencia entre valores y acciones</span>
+    </div>
+    <div class="mv-valor">
+      <i class="fas fa-heart"></i>
+      <strong>Servicio</strong>
+      <span>Espíritu solidario hacia la comunidad</span>
+    </div>
+    <div class="mv-valor">
+      <i class="fas fa-star"></i>
+      <strong>Excelencia</strong>
+      <span>Dar lo mejor en todo lo que hacemos</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ACTIVIDADES ══ -->
+<section class="actividades" id="actividades">
+  <div class="act-header">
+    <span class="section-label">Vida estudiantil</span>
+    <h2 class="section-title">Más allá del <em>salón de clases</em></h2>
+  </div>
+
+  <div class="act-tabs">
+    <button class="act-tab active" data-panel="culturales">Talleres culturales</button>
+    <button class="act-tab" data-panel="espirituales">Devocionales</button>
+  </div>
+
+  <!-- TALLERES CULTURALES -->
+  <div class="act-panel active" id="panel-culturales">
+    <div class="act-panel-info">
+      <div>
+        <h3>Talleres culturales</h3>
+        <p>Inglés, arte, cocina y jardinería — espacios donde cada estudiante descubre y desarrolla sus talentos más allá del aula.</p>
+      </div>
+    </div>
+    <div class="photo-mosaic">
+      <div class="photo-item big">
+        <div class="photo-placeholder">
+            <a href='https://postimg.cc/ZCJzw6CG' target='_blank'><img src='https://i.postimg.cc/8P6kPHDz/IMG-20261119-230721.jpg' border='0' alt='Trajes Guatemaltecos'></a>
+       </div>
+        <div class="photo-overlay"><span>Trajes Folcloricos de Guatemala</span></div>
+      </div>
+      <!-- Foto 2: Inglés 2 -->
+      <div class="photo-item tall">
+        <div class="photo-placeholder">
+            <a href='https://postimg.cc/18nH1YTx' target='_blank'><img src='https://i.postimg.cc/BnNwDrBv/2.png' border='0' alt='2'></a>
+          
+        </div>
+        <div class="photo-overlay"><span>Experimento Científico</span></div>
+      </div>
+      <!-- Foto 3: Inglés 3 -->
+      <div class="photo-item tall">
+        <div class="photo-placeholder">
+            <a href='https://postimg.cc/S2zVL16P' target='_blank'><img src='https://i.postimg.cc/FRTq427h/1.png' border='0' alt='1'></a>
+          
+        </div>
+        <div class="photo-overlay"><span>Proyectos</span></div>
+      </div>
+      <!-- Foto 4: Arte -->
+      <div class="photo-item">
+        <div class="photo-placeholder">
+          <i class="fas fa-image"></i>
+          <span>Arte y pintura</span>
+        </div>
+        <div class="photo-overlay"><span>Taller de arte y pintura</span></div>
+      </div>
+      <!-- Foto 5: Cocina -->
+      <div class="photo-item wide">
+        <div class="photo-placeholder">
+          <i class="fas fa-image"></i>
+          <span>Taller de cocina</span>
+        </div>
+        <div class="photo-overlay"><span>Gastronomía guatemalteca</span></div>
+      </div>
+      <!-- Foto 6: Jardinería -->
+      <div class="photo-item">
+        <div class="photo-placeholder">
+         <img src="https://i.postimg.cc/VvpzCvqg/84de1f1a-442d-429b-a03d-fa85184d7803.jpg" alt="Taller de jardinería">
+          <span>Taller de jardinería</span>
+        </div>
+        <div class="photo-overlay"><span>Jardinería y cuidado del entorno</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEVOCIONALES -->
+  <div class="act-panel" id="panel-espirituales">
+      <div class="act-panel-info">
+          <div>
+              <h3>Devocionales matutinos</h3>
+              <p>Cada semana iniciamos con reflexiones bíblicas, alabanza y oración, fortaleciendo la vida espiritual de toda nuestra comunidad educativa.</p>
+          </div>
+      </div>
+      <div class="photo-mosaic devo-mosaic">
+          <div class="photo-item tall">
+              <a href='https://postimg.cc/WtPB406d' target='_blank'><img src='https://i.postimg.cc/XNZ4Q8rk/reflexion.jpg' border='0' alt='reflexion'></a>
+              <div class="photo-overlay"><span>Reflexión bíblica</span></div>
+          </div>
+          <div class="photo-item big">
+              <a href='https://postimg.cc/RWbdnzrz' target='_blank'><img src='https://i.postimg.cc/yN7btVvW/tiempo-espiritual.jpg' border='0' alt='tiempo-espiritual'></a>
+              <div class="photo-overlay"><span>Tiempo espiritual</span></div>
+          </div>
+          <div class="photo-item tall">
+              <a href='https://postimg.cc/CdY20SSD' target='_blank'><img src='https://i.postimg.cc/FFJXjH6P/oracion.jpg' border='0' alt='oracion'></a>
+              <div class="photo-overlay"><span>Momento de oración</span></div>
+          </div>
+      </div>
+  </div>
+</section>
+
+<!-- ══ INSTALACIONES ══ -->
+<section class="instalaciones" id="instalaciones">
+  <div class="inst-header">
+    <span class="section-label">Nuestros espacios</span>
+    <h2 class="section-title">Instalaciones diseñadas<br>para <em>aprender</em></h2>
+    <p>Ambientes seguros, modernos y estimulantes donde cada estudiante puede desarrollar su potencial al máximo.</p>
+  </div>
+
+  <div class="inst-mosaic">
+    <!-- Fila 1: Lab de computación (grande) + Jardín -->
+    <div class="inst-photo span4 tall">
+      <!-- Para reemplazar: <img src="TU_FOTO.jpg" alt="Laboratorio de computación"> -->
+      <div class="inst-placeholder">
+        <i class="fas fa-laptop-code"></i>
+        <div class="inst-placeholder-label">
+          <strong>Laboratorio de Computación</strong>
+          <span>Reemplazar con foto</span>
+        </div>
+      </div>
+      <div class="inst-photo-overlay">
+        <div class="inst-photo-tag">Tecnología</div>
+        <div class="inst-photo-name">Laboratorio de Computación</div>
+      </div>
+    </div>
+
+    <div class="inst-photo span2 tall">
+      <div class="inst-placeholder">
+        <i class="fas fa-seedling"></i>
+        <div class="inst-placeholder-label">
+          <strong>Jardín</strong>
+          <span>Reemplazar con foto</span>
+        </div>
+      </div>
+      <div class="inst-photo-overlay">
+        <div class="inst-photo-tag">Naturaleza</div>
+        <div class="inst-photo-name">Jardín</div>
+      </div>
+    </div>
+
+    <!-- Fila 2: 2 Aulas + Aula de Pre-primaria -->
+    <div class="inst-photo span2">
+      <div class="inst-placeholder">
+        
+        <div class="inst-placeholder-label">
+          <a href='https://postimg.cc/7CM96JN6' target='_blank'><img src='https://i.postimg.cc/wBnGwhyh/IMG20260819074054.jpg' border='0' alt='IMG20260819074054'></a>
+        </div>
+      </div>
+      <div class="inst-photo-overlay">
+        <div class="inst-photo-name">Salón de Clases</div>
+      </div>
+    </div>
+
+    <div class="inst-photo span2">
+      <div class="inst-placeholder">
+        <i class="fas fa-chalkboard-teacher"></i>
+        <div class="inst-placeholder-label">
+          <a href='https://postimg.cc/yDKSNQpT' target='_blank'><img src='https://i.postimg.cc/3x4jnzgz/IMG20260819074027.jpg' border='0' alt='IMG20260819074027'></a>
+        </div>
+      </div>
+      <div class="inst-photo-overlay">
+                <div class="inst-photo-name">Salón de Clases</div>
+      </div>
+    </div>
+
+    <div class="inst-photo span2">
+      <div class="inst-placeholder">
+        <i class="fas fa-child"></i>
+        <div class="inst-placeholder-label">
+          <strong>Aula de Pre-primaria</strong>
+          <span>Reemplazar con foto</span>
+        </div>
+      </div>
+      <div class="inst-photo-overlay">
+        <div class="inst-photo-tag">Pre-primaria</div>
+        <div class="inst-photo-name">Aula de Pre-primaria</div>
+      </div>
+    </div>
+
+    <!-- Fila 3: Recepción + Salón de Devocional + Patio del Receso -->
+    <div class="inst-photo span2">
+      <div class="inst-placeholder">
+        <i class="fas fa-concierge-bell"></i>
+        <div class="inst-placeholder-label">
+          <strong>Recepción</strong>
+          <span>Reemplazar con foto</span>
+        </div>
+      </div>
+      <div class="inst-photo-overlay">
+        <div class="inst-photo-tag">Administración</div>
+        <div class="inst-photo-name">Recepción</div>
+      </div>
+    </div>
+
+    <div class="inst-photo span2">
+      <div class="inst-placeholder">
+        <i class="fas fa-pray"></i>
+        <div class="inst-placeholder-label">
+          <strong>Salón de Devocional</strong>
+          <span>Reemplazar con foto</span>
+        </div>
+      </div>
+      <div class="inst-photo-overlay">
+        <div class="inst-photo-tag">Espiritual</div>
+        <div class="inst-photo-name">Salón de Devocional</div>
+      </div>
+    </div>
+
+    <div class="inst-photo span2">
+      <div class="inst-placeholder">
+        <i class="fas fa-running"></i>
+        <div class="inst-placeholder-label">
+          <strong>Patio del Receso</strong>
+          <span>Reemplazar con foto</span>
+        </div>
+      </div>
+      <div class="inst-photo-overlay">
+        <div class="inst-photo-tag">Recreación</div>
+        <div class="inst-photo-name">Patio del Receso</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NIVELES ══ -->
+<section class="niveles" id="niveles">
+  <span class="section-label">Oferta educativa</span>
+  <h2 class="section-title">Un camino completo<br><em>desde el inicio</em></h2>
+  <div class="niveles-grid">
+    <div class="nivel-card">
+      <div class="nivel-num">01</div>
+      <div class="nivel-title">Preprimaria</div>
+      <p class="nivel-desc">Estimulación temprana y aprendizaje lúdico que sienta las bases del desarrollo cognitivo y emocional.</p>
+      <span class="nivel-ages">4 – 6 años</span>
+    </div>
+    <div class="nivel-card">
+      <div class="nivel-num">02</div>
+      <div class="nivel-title">Primaria</div>
+      <p class="nivel-desc">Seis años de formación sólida en habilidades fundamentales: lectura, escritura, matemáticas y pensamiento crítico.</p>
+      <span class="nivel-ages">7 – 12 años</span>
+    </div>
+    <div class="nivel-card">
+      <div class="nivel-num">03</div>
+      <div class="nivel-title">Básicos</div>
+      <p class="nivel-desc">Exploración de vocaciones, desarrollo de identidad y profundización en ciencias, humanidades y artes.</p>
+      <span class="nivel-ages">13 – 15 años</span>
+    </div>
+    <div class="nivel-card" style="border-right: none;">
+      <div class="nivel-num">04</div>
+      <div class="nivel-title">Diversificado</div>
+      <p class="nivel-desc">Bachillerato con orientación en Ciencias y Letras, Computación y Ciencias Biológicas, enfocado en la preparación académica integral para el ingreso universitario.</p>
+      <span class="nivel-ages">16 – 18 años</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROPUESTA ══ -->
+<section class="propuesta" id="propuesta">
+  <div class="propuesta-left">
+    <span class="section-label">Nuestra filosofía</span>
+    <h2 class="section-title">Educación que <em>trasciende</em> el aula</h2>
+    <p class="propuesta-desc">En Rey David creemos que aprender va más allá de memorizar contenidos. Formamos personas capaces de pensar, crear y servir a su comunidad con integridad.</p>
+    <div class="pilares">
+      <div class="pilar">
+        <span class="pilar-num">I</span>
+        <div class="pilar-text">
+          <strong>Excelencia académica</strong>
+          <span>Formación basada en el CNB de Guatemala, adaptada a las necesidades y competencias de cada grado académico, complementada con metodologías activas de aprendizaje y docentes altamente capacitados para brindar una educación integral y de calidad.</span>
+        </div>
+      </div>
+      <div class="pilar">
+        <span class="pilar-num">II</span>
+        <div class="pilar-text">
+          <strong>Formación en valores</strong>
+          <span>Promovemos una educación basada en principios y valores cristianos, fomentando el respeto, la responsabilidad, la honestidad y el amor al prójimo. Buscamos formar estudiantes íntegros, con espíritu de servicio y compromiso hacia Dios, su familia y la sociedad.</span>
+        </div>
+      </div>
+      <div class="pilar">
+        <span class="pilar-num">III</span>
+        <div class="pilar-text">
+          <strong>Bienestar integral</strong>
+          <span>Impulsamos el desarrollo físico, emocional, espiritual y académico de los estudiantes mediante actividades deportivas, artísticas y acompañamiento psicológico. Además, brindamos orientación vocacional para fortalecer sus talentos, valores y proyecto de vida.</span>
+        </div>
+      </div>
+      <div class="pilar">
+        <span class="pilar-num">IV</span>
+        <div class="pilar-text">
+          <strong>Tecnología e innovación</strong>
+          <span>Contamos con laboratorios modernos y espacios tecnológicos que fortalecen el aprendizaje práctico y el desarrollo del pensamiento computacional desde primaria. Promovemos habilidades digitales, lógicas y creativas preparadas para los retos académicos y tecnológicos actuales./span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="propuesta-right">
+    <div class="valores-grid">
+      <div class="valor-card">
+        <span class="valor-icon">🎯</span>
+        <div class="valor-name">Enfoque STEAM</div>
+        <p class="valor-desc">Integración de ciencias, tecnología, arte y matemáticas mediante proyectos prácticos y experiencias reales de aprendizaje, permitiendo que los estudiantes desarrollen habilidades analíticas, creativas y tecnológicas aplicadas a situaciones de la vida cotidiana y al entorno académico actual./p>
+      </div>
+      <div class="valor-card">
+        <span class="valor-icon">🌎</span>
+        <div class="valor-name">Bilingüismo</div>
+        <p class="valor-desc">Inglés desde preprimaria, impartido con metodología comunicativa y docentes capacitados para desarrollar el aprendizaje de forma natural y efectiva.</p>
+      </div>
+      <div class="valor-card">
+        <span class="valor-icon">🛠️</span>
+        <div class="valor-name">Talleres</div>
+        <p class="valor-desc">Desarrollar la formación integral de los estudiantes mediante el fortalecimiento de habilidades motoras, culinarias, artísticas y expresivas, incluyendo áreas como cocina, arte y danza.</p>
+      </div>
+      <div class="valor-card">
+        <span class="valor-icon">🏆</span>
+        <div class="valor-name">Olimpiadas</div>
+        <p class="valor-desc">Promoviendo competencias saludables y el desarrollo académico en distintas áreas, como Matemáticas, Inglés y Tecnología, fortaleciendo el aprendizaje y el crecimiento integral de los estudiantes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ADMISIONES ══ -->
+<div class="admisiones-band" id="admisiones">
+  <div class="admisiones-band-text">
+    <span class="section-label">Proceso de admisión 2027</span>
+    <h2 class="section-title">Las inscripciones<br>están abiertas</h2>
+    <p>Cupos limitados. Inicia el proceso hoy y asegura el futuro de tu hijo.</p>
+  </div>
+  <a href="#contacto" class="btn-navy">Solicitar información →</a>
+</div>
+
+<!-- ══ CONTACTO ══ -->
+<section class="contacto" id="contacto">
+  <div class="contacto-info">
+    <span class="section-label">Escríbenos</span>
+    <h2 class="section-title">¿Tienes <em>preguntas</em>?</h2>
+    <p>Nuestro equipo de admisiones está listo para orientarte. Contáctanos por cualquiera de estos medios o llena el formulario.</p>
+
+    <div class="contacto-items">
+      <div class="contacto-item">
+        <div class="contacto-item-icon">📍</div>
+        <div class="contacto-item-text">
+          <strong>Dirección</strong>
+          <span>3a. Calle 5-37 zona 3 de Mixco, Mixco, Guatemala</span>
+        </div>
+      </div>
+      <div class="contacto-item">
+        <div class="contacto-item-icon">📞</div>
+        <div class="contacto-item-text">
+          <strong>Teléfono</strong>
+          <span>+502 5462 1496</span>
+        </div>
+      </div>
+      <div class="contacto-item">
+        <div class="contacto-item-icon">✉️</div>
+        <div class="contacto-item-text">
+          <strong>Correo electrónico</strong>
+          <span>colegio.rey.david1@gmail.com</span>
+        </div>
+      </div>
+      <div class="contacto-item">
+        <div class="contacto-item-icon">🕐</div>
+        <div class="contacto-item-text">
+          <strong>Horario de atención</strong>
+          <span>Lunes a viernes: 7:00 – 14:00 h</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mapa-container">
+      <iframe
+        src="https://www.google.com/maps?q=3a+Calle+5-37+zona+3+de+Mixco,+Guatemala&output=embed"
+        width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+      </iframe>
+    </div>
+
+    <div class="redes-sociales">
+      <div class="red-social">
+        <a href="https://www.instagram.com/col_rey_david/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <span>Instagram</span>
+      </div>
+      <div class="red-social">
+        <a href="https://www.facebook.com/profile.php?id=61589546653542" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <span>Facebook</span>
+      </div>
+      <div class="red-social">
+        <a href="https://www.tiktok.com/@colegioreydavid1?is_from_webapp=1&sender_device=pc" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <span>TikTok</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo">
+        <img src="https://i.postimg.cc/T3nLvp6j/image.png" alt="Logo" class="nav-logo-img">
+        <div class="nav-logo-text">
+          <strong>Colegio Rey David</strong>
+          <span>Formando el futuro desde 2000</span>
+        </div>
+      </div>
+      <p class="footer-desc">Institución educativa cristiana privada comprometida con la excelencia académica, la formación en valores bíblicos y el desarrollo integral de cada estudiante en un ambiente de fe, respeto y servicio.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Académico</h4>
+      <ul>
+        <li><a href="#niveles">Preprimaria</a></li>
+        <li><a href="#niveles">Primaria</a></li>
+        <li><a href="#niveles">Básicos</a></li>
+        <li><a href="#niveles">Diversificado</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Institución</h4>
+      <ul>
+        <li><a href="#mision-vision">Misión y Visión</a></li>
+        <li><a href="#actividades">Actividades</a></li>
+        <li><a href="#instalaciones">Instalaciones</a></li>
+        <li><a href="#admisiones">Admisiones</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Colegio Rey David. Todos los derechos reservados.</span>
+    <span>Mixco, Guatemala</span>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+    });
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 80 ? '0 2px 20px rgba(0,0,0,0.3)' : 'none';
+  });
+
+  document.querySelectorAll('.act-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.act-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.act-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
+    });
+  });
+
+  document.querySelector('.form-submit').addEventListener('click', function() {
+    this.textContent = '✓ Mensaje enviado';
+    this.style.background = '#2a5a2a';
+    setTimeout(() => {
+      this.textContent = 'Enviar mensaje';
+      this.style.background = '';
+    }, 3000);
+  });
+</script>
+</body>
+</html>
